@@ -77,6 +77,7 @@ export default function Home() {
       if (error.response.data) {
         alert(error.response.data.message);
       }
+      setLoadingLogin(false);
     }
   };
 
@@ -119,12 +120,16 @@ export default function Home() {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              {!loadingLogin && <Button onClick={login}>Login</Button>}
+              {/* {!loadingLogin && <Button onClick={login}>Login</Button>}
               {loadingLogin && (
                 <Button onClick={login} disabled={true}>
                   Login...
                 </Button>
-              )}
+              )} */}
+
+              <Button onClick={login} disabled={loadingLogin}>
+                Login{loadingLogin ? "..." : ""}
+              </Button>
             </Group>
           )}
           {authenUsername && (
@@ -152,7 +157,7 @@ export default function Home() {
             ))}
 
           {/* Do something with below loader!! */}
-          {loadingMyCourses && <Loader variant="dots" />}
+          {loadingMyCourses && !myCourses && <Loader variant="dots" />}
         </Paper>
         <Footer
           year="2023"
